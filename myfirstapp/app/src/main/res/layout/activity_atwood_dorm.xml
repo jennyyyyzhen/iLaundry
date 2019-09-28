@@ -7,7 +7,7 @@
     tools:context=".AtwoodDorm">
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/Atwood_dryer_1"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
@@ -19,56 +19,61 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton8"
+        android:id="@+id/Atwood_dryer_2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="150dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[2]" />
 
     <ImageButton
-        android:id="@+id/imageButton9"
+        android:id="@+id/Atwood_dryer_3"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton10"
+        android:id="@+id/Atwood_dryer_4"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton11"
+        android:id="@+id/Atwood_dryer_5"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton8"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_2"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton12"
+        android:id="@+id/Atwood_dryer_6"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton9"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_3"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -86,57 +91,62 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton13"
+        android:id="@+id/Atwood_washer_1"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="60dp"
+        android:onClick="changeStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton10"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_5"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton14"
+        android:id="@+id/Atwood_washer_2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton11"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_5"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton15"
+        android:id="@+id/Atwood_washer_3"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton12"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_5"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton16"
+        android:id="@+id/Atwood_washer_4"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton13"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_washer_1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/imageButton17"
+        android:id="@+id/Atwood_washer_5"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton14"
+        app:layout_constraintTop_toBottomOf="@+id/Atwood_washer_2"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

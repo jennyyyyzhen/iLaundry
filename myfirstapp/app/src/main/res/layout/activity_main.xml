@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/northButton"
+        android:id="@+id/North"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -16,10 +16,10 @@
         android:onClick="goNorthDorm"
         android:text="North"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eastButton" />
+        app:layout_constraintTop_toBottomOf="@+id/East" />
 
     <Button
-        android:id="@+id/eastButton"
+        android:id="@+id/East"
         android:layout_width="88dp"
         android:layout_height="52dp"
         android:layout_marginStart="40dp"
@@ -31,40 +31,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/southButton"
+        android:id="@+id/South"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goSouthDorm"
         android:text="South"
-        app:layout_constraintBaseline_toBaselineOf="@+id/eastButton"
-        app:layout_constraintStart_toEndOf="@+id/sontagButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/East"
+        app:layout_constraintStart_toEndOf="@+id/Sontag" />
 
     <Button
-        android:id="@+id/sontagButton"
+        android:id="@+id/Sontag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goSontagDorm"
         android:text="Sontag"
-        app:layout_constraintBaseline_toBaselineOf="@+id/eastButton"
-        app:layout_constraintStart_toEndOf="@+id/eastButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/East"
+        app:layout_constraintStart_toEndOf="@+id/East" />
 
     <Button
-        android:id="@+id/drinkwardButton"
+        android:id="@+id/Drinkward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goDrinkwardDorm"
         android:text="Drinkward"
-        app:layout_constraintBaseline_toBaselineOf="@+id/northButton"
-        app:layout_constraintStart_toEndOf="@+id/westButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/North"
+        app:layout_constraintStart_toEndOf="@+id/West" />
 
     <Button
-        android:id="@+id/lindeButton"
+        android:id="@+id/Linde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -73,38 +73,38 @@
         android:onClick="goLindeDorm"
         android:text="Linde"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/northButton" />
+        app:layout_constraintTop_toBottomOf="@+id/North" />
 
     <Button
-        android:id="@+id/caseButton"
+        android:id="@+id/Case"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goCaseDorm"
         android:text="Case"
-        app:layout_constraintBaseline_toBaselineOf="@+id/atwoodButton"
-        app:layout_constraintStart_toEndOf="@+id/lindeButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/Atwood"
+        app:layout_constraintStart_toEndOf="@+id/Linde" />
 
     <Button
-        android:id="@+id/atwoodButton"
+        android:id="@+id/Atwood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goAtwoodDorm"
         android:text="Atwood"
-        app:layout_constraintBaseline_toBaselineOf="@+id/lindeButton"
-        app:layout_constraintStart_toEndOf="@+id/caseButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/Linde"
+        app:layout_constraintStart_toEndOf="@+id/Case" />
 
     <Button
-        android:id="@+id/westButton"
+        android:id="@+id/West"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:onClick="goWestDorm"
         android:text="West"
-        app:layout_constraintBaseline_toBaselineOf="@+id/northButton"
-        app:layout_constraintStart_toEndOf="@+id/northButton" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/North"
+        app:layout_constraintStart_toEndOf="@+id/North" />
 </androidx.constraintlayout.widget.ConstraintLayout>
