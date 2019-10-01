@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
+
+    /* The following functions would be called if the corresponding buttons get clicked by
+     users. It would start a new activity and navigate user to the new page.
+     */
     public void goEastDorm(View view){
         //called when the user taps the send button
         Intent intent = new Intent(this, EastDorm.class);
