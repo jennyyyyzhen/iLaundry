@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+=======
+import android.util.Log;
+import android.view.View;
+>>>>>>> 70894b210dbfe7616ef6d00fd1dd4df7ec2622b1
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AtwoodDorm extends AppCompatActivity {
 
+<<<<<<< HEAD
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
+=======
+>>>>>>> 70894b210dbfe7616ef6d00fd1dd4df7ec2622b1
     @Override
     /*
         Display the layout when the new activity is created.
@@ -27,6 +35,7 @@ public class AtwoodDorm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atwood_dorm);
+<<<<<<< HEAD
 
         final Button button = (Button)  findViewById(R.id.Atwood_dryer_2);
         final DatabaseReference NODE = database.child("Atwood").child("dryer").child("2");
@@ -53,6 +62,16 @@ public class AtwoodDorm extends AppCompatActivity {
         true, then changed it to false. Otherwise, change it to true
      */
     public void changeStatus(View view) {
+=======
+    }
+
+    /* This function is called when a button is clicked. It gets the ID of that button and
+        the check the corresponding value stored in the database. If the status is currently
+        true, then changed it to false. Otherwise, change it to true
+     */
+    public void changeStatus(View view){
+        DatabaseReference database=FirebaseDatabase.getInstance().getReference();
+>>>>>>> 70894b210dbfe7616ef6d00fd1dd4df7ec2622b1
 
         int viewID = view.getId();
         String viewName = getResources().getResourceName(viewID);
@@ -62,6 +81,7 @@ public class AtwoodDorm extends AppCompatActivity {
         String machine = childNodes[1];
         String num = childNodes[2];
 
+<<<<<<< HEAD
         final Button button = (Button) view;
         StringBuilder sb = new StringBuilder(button.getText());
         String status = sb.toString();
@@ -88,3 +108,21 @@ public class AtwoodDorm extends AppCompatActivity {
 }
 
 
+=======
+        final DatabaseReference NODE = database.child(dorm).child(machine).child(num);
+
+        NODE.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean status = dataSnapshot.getValue(Boolean.class);
+                NODE.setValue(!status);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+}
+>>>>>>> 70894b210dbfe7616ef6d00fd1dd4df7ec2622b1
