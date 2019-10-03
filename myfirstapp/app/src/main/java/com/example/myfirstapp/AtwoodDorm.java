@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Instant;
+
 public class AtwoodDorm extends AppCompatActivity {
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -32,13 +34,18 @@ public class AtwoodDorm extends AppCompatActivity {
 
 
         final Button button = (Button)  findViewById(R.id.Atwood_dryer_2);
-        final DatabaseReference NODE = database.child("Atwood").child("dryer").child("2");
+        final DatabaseReference NODE = database.child("Atwood").child("dryer").child("2").child("endTime");
 
         NODE.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean status = dataSnapshot.getValue(Boolean.class);
-                button.setText(Boolean.toString(status));
+                long endtime = dataSnapshot.getValue(long.class);
+                long now = Instant.now().toEpochMilli();
+                if(endtime>now){
+                    startTimer(button,endtime-now);
+                }else{
+                    button.setText("true");
+                }
             }
 
             @Override
@@ -49,15 +56,6 @@ public class AtwoodDorm extends AppCompatActivity {
 
     }
 
-
-    /*
-    This function is called when a button is clicked. It gets the ID of that button and
-        the check the corresponding value stored in the database. If the status is currently
-        true, then changed it to false. Otherwise, change it to true
-     */
-    public void changeStatus(View view) {
-
-    }
 
     /* This function is called when a button is clicked. It gets the ID of that button and
         the check the corresponding value stored in the database. If the status is currently
@@ -77,42 +75,29 @@ public class AtwoodDorm extends AppCompatActivity {
 
 
         final Button button = (Button) view;
+        final DatabaseReference node = database.child(dorm).child(machine).child(num);
+
         StringBuilder sb = new StringBuilder(button.getText());
         String status = sb.toString();
 
-        final DatabaseReference node = database.child(dorm).child(machine).child(num);
-
-
         if (status.equals("true")) {
-            Log.e(status,"status");
-            CountDownTimer countDownTimer = new CountDownTimer(10 * 1000, 1000) {
-                @Override
-                public void onTick(long l) {
-                    button.setText("seconds" + l);
-                    node.setValue(false);
-                }
-
-                public void onFinish() {
-                    button.setText("true");
-                    node.setValue(true);
-                }
-            }.start();
+            long now = Instant.now().toEpochMilli();
+            node.child("endTime").setValue(now+100*1000);
+            startTimer(button,100*1000);
         }
     }
-}
-        final DatabaseReference NODE = database.child(dorm).child(machine).child(num);
 
-        NODE.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void startTimer(View view, long timeInMili) {
+        final Button button = (Button) view;
+        CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean status = dataSnapshot.getValue(Boolean.class);
-                NODE.setValue(!status);
+            public void onTick(long l) {
+                button.setText("seconds" + l);
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
+            public void onFinish() {
+                button.setText("true");
             }
-        });
-
+        }.start();
     }
 }

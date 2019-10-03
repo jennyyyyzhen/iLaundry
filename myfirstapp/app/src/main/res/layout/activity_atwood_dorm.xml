@@ -40,30 +40,7 @@
         android:onClick="changeStatus"
         app:layout_constraintBottom_toTopOf="@+id/Atwood_dryer_6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Atwood_dryer_2"
-
-        android:id="@+id/Atwood_dryer_2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="150dp"
-        android:onClick="changeStatus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[2]" />
-
-    <ImageButton
-        android:id="@+id/Atwood_dryer_3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:onClick="changeStatus"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintStart_toEndOf="@+id/Atwood_dryer_2" />
 
     <ImageButton
         android:id="@+id/Atwood_dryer_4"
@@ -132,7 +109,7 @@
         android:id="@+id/Atwood_washer_2"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="88dp"
         android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -152,13 +129,13 @@
         app:layout_constraintTop_toBottomOf="@+id/Atwood_dryer_5"
         tools:srcCompat="@tools:sample/avatars" />
 
+
     <ImageButton
         android:id="@+id/Atwood_washer_4"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="88dp"
         android:onClick="changeStatus"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Atwood_washer_1"
@@ -168,13 +145,13 @@
         android:id="@+id/Atwood_washer_5"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="64dp"
         android:onClick="changeStatus"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Atwood_washer_2"
         tools:srcCompat="@tools:sample/avatars" />
-
 
     <Button
         android:id="@+id/Atwood_dryer_2"
@@ -186,7 +163,9 @@
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/Atwood_dryer_5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.612" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
