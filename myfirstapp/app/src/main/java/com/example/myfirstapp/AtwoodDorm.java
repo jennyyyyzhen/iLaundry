@@ -23,6 +23,8 @@ import java.time.Instant;
 public class AtwoodDorm extends AppCompatActivity {
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    int numWasher = 5;
+    int numDryer = 6;
 
     @Override
     /*
@@ -31,29 +33,8 @@ public class AtwoodDorm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atwood_dorm);
-
-
-        final Button button = (Button)  findViewById(R.id.Atwood_dryer_2);
-        final DatabaseReference NODE = database.child("Atwood").child("dryer").child("2").child("endTime");
-
-        NODE.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long endtime = dataSnapshot.getValue(long.class);
-                long now = Instant.now().toEpochMilli();
-                if(endtime>now){
-                    startTimer(button,endtime-now);
-                }else{
-                    button.setText("true");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        setButtonDisplay("Atwood_dryer_2");
+        setButtonDisplay("Atwood_dryer_3");
     }
 
 
@@ -62,7 +43,6 @@ public class AtwoodDorm extends AppCompatActivity {
         true, then changed it to false. Otherwise, change it to true
      */
     public void changeStatus(View view){
-        DatabaseReference database=FirebaseDatabase.getInstance().getReference();
 
 
         int viewID = view.getId();
@@ -74,8 +54,8 @@ public class AtwoodDorm extends AppCompatActivity {
         String num = childNodes[2];
 
 
-        final Button button = (Button) view;
-        final DatabaseReference node = database.child(dorm).child(machine).child(num);
+        Button button = (Button) view;
+        DatabaseReference node = database.child(dorm).child(machine).child(num);
 
         StringBuilder sb = new StringBuilder(button.getText());
         String status = sb.toString();
@@ -99,5 +79,35 @@ public class AtwoodDorm extends AppCompatActivity {
                 button.setText("true");
             }
         }.start();
+    }
+
+    private void setButtonDisplay(String id){
+        String[] childNodes = id.split("_");
+        String dorm = childNodes[0];
+        String machine = childNodes[1];
+        String num = childNodes[2];
+
+        int resID = getResources().getIdentifier(id, "id", getPackageName());
+        final Button button = ((Button) findViewById(resID));
+        final DatabaseReference NODE = database.child(dorm).child(machine).child(num).child("endTime");
+
+        NODE.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long endtime = dataSnapshot.getValue(long.class);
+                long now = Instant.now().toEpochMilli();
+                if(endtime>now){
+                    startTimer(button,endtime-now);
+                }else{
+                    button.setText("true");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
