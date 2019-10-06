@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
@@ -63,11 +64,13 @@ public class AtwoodDorm extends AppCompatActivity {
         if (status.equals("true")) {
             long now = Instant.now().toEpochMilli();
             node.child("endTime").setValue(now+100*1000);
-            startTimer(button,100*1000);
+            createConfirmationDialog(button,100*1000).show();
+        } else{
+            createAlertDialog().show();
         }
     }
 
-    public void startTimer(View view, long timeInMili) {
+    private void startTimer(View view, long timeInMili) {
         final Button button = (Button) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
             @Override
@@ -108,6 +111,38 @@ public class AtwoodDorm extends AppCompatActivity {
 
             }
         });
-
     }
+
+   private AlertDialog createAlertDialog() {
+       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       builder.setMessage("This machine is in use")
+               .setTitle("Alert");
+
+       AlertDialog dialog = builder.create();
+       return dialog;
+   }
+
+   private AlertDialog createConfirmationDialog(final Button button, final long time){
+       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       builder.setMessage("Start this machine")
+               .setCancelable(false)
+               .setPositiveButton("yes",new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog,int id) {
+                       startTimer(button, time);
+                   }
+               })
+               .setNegativeButton("no",new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog,int id) {
+                       // if this button is clicked, just close
+                       // the dialog box and do nothing
+                       dialog.cancel();
+                   }
+               });
+
+
+       AlertDialog dialog = builder.create();
+       return dialog;
+   }
 }
