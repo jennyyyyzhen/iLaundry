@@ -24,12 +24,11 @@ import java.time.Instant;
 public class AtwoodDorm extends AppCompatActivity {
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    int numWasher = 5;
-    int numDryer = 6;
 
     @Override
     /*
         Display the layout when the new activity is created.
+        Set all text displayed on all buttons
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +48,15 @@ public class AtwoodDorm extends AppCompatActivity {
 
 
     /* This function is called when a button is clicked. It gets the ID of that button and
-        the check the corresponding value stored in the database. If the status is currently
-        true, then changed it to false. Otherwise, change it to true
+        then read the text of that button.
+
+        If the button displays "true", it means the machine is available now. We will
+        create a time stamp and show a dialog. Users can choose whether or not to start that machine
+
+        If the button displays other text message, then it means the machine is occupied. If
+        users click on the machine, it will show a alert dialog to users.
      */
     public void changeStatus(View view){
-
-
         int viewID = view.getId();
         String viewName = getResources().getResourceName(viewID);
 
@@ -63,7 +65,6 @@ public class AtwoodDorm extends AppCompatActivity {
         String machine = childNodes[1];
         String num = childNodes[2];
 
-
         Button button = (Button) view;
         DatabaseReference node = database.child(dorm).child(machine).child(num);
 
@@ -71,38 +72,56 @@ public class AtwoodDorm extends AppCompatActivity {
         String status = sb.toString();
 
         if (status.equals("true")) {
+
+            // if the machine is available then show an confirmation dialog
             long now = Instant.now().toEpochMilli();
             node.child("endTime").setValue(now+100*1000);
             createConfirmationDialog(button,100*1000).show();
         } else{
+
+            // if the machine is occupied, then show an alert dialog
             createAlertDialog().show();
         }
     }
 
+    /*
+        Start to countdown given amount of time when a button is clicked.
+     */
     private void startTimer(View view, long timeInMili) {
         final Button button = (Button) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
+            
             @Override
+            // update remaining time every mins.
             public void onTick(long l) {
-                button.setText(Long.toString(l/60/1000)+" mins");
+                String mins = Long.toString(l/60/1000);
+                button.setText(mins+" mins");
             }
 
+            // update text of button when finished
             public void onFinish() {
                 button.setText("true");
             }
         }.start();
     }
 
+    /*
+        A helper function to set text message for a given button. If the end time is greater than
+        current time, then start a countdown timer. Otherwise, display true.
+     */
     private void setButtonDisplay(final String id){
+        // acquire machine information from its id
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
         String machine = childNodes[1];
         String num = childNodes[2];
 
+        // find the corresponding button and node in the database
         int resID = getResources().getIdentifier(id, "id", getPackageName());
         final Button button = ((Button) findViewById(resID));
         final DatabaseReference NODE = database.child(dorm).child(machine).child(num).child("endTime");
 
+        // read and write data to the database
         NODE.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,12 +135,13 @@ public class AtwoodDorm extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
+    /*
+      This function returns a alert dialog when the user click on a machine that is in use.
+    */
    private AlertDialog createAlertDialog() {
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -132,6 +152,12 @@ public class AtwoodDorm extends AppCompatActivity {
        return dialog;
    }
 
+
+   /*
+   This function returns a alert dialog that allows user to choose whether to start a machine or
+   not. If the user choose yes, then it will start a timer with a given amount of time.
+    */
+
    private AlertDialog createConfirmationDialog(final Button button, final long time){
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -139,6 +165,8 @@ public class AtwoodDorm extends AppCompatActivity {
                .setCancelable(false)
                .setPositiveButton("yes",new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog,int id) {
+
+                       // if this button is clicked, start timer
                        startTimer(button, time);
                    }
                })
@@ -149,7 +177,6 @@ public class AtwoodDorm extends AppCompatActivity {
                        dialog.cancel();
                    }
                });
-
 
        AlertDialog dialog = builder.create();
        return dialog;
