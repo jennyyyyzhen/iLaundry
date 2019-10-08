@@ -7,13 +7,138 @@
     tools:context=".CaseDorm">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:layout_marginTop="238dp"
-        android:text="5 washers 5 dryers"
+        android:layout_marginTop="100dp"
+        android:text="5 washers, 5 dryers"
+        android:textSize="20sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Case_dryer_1"
+        android:layout_width="88dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="200dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <Button
+        android:id="@+id/Case_dryer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_dryer_1"
+        app:layout_constraintStart_toEndOf="@+id/Case_dryer_1" />
+
+
+    <Button
+        android:id="@+id/Case_dryer_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_dryer_1"
+        app:layout_constraintStart_toEndOf="@+id/Case_dryer_2" />
+
+
+    <Button
+        android:id="@+id/Case_dryer_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Case_dryer_1" />
+
+    <Button
+        android:id="@+id/Case_dryer_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_dryer_4"
+        app:layout_constraintStart_toEndOf="@+id/Case_dryer_4" />
+
+
+    <Button
+        android:id="@+id/Case_washer_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_dryer_4"
+        app:layout_constraintStart_toEndOf="@+id/Case_dryer_5" />
+
+
+
+    <Button
+        android:id="@+id/Case_washer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Case_dryer_4" />
+
+    <Button
+        android:id="@+id/Case_washer_3"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_washer_2"
+        app:layout_constraintStart_toEndOf="@+id/Case_washer_2" />
+
+    <Button
+        android:id="@+id/Case_washer_4"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/Case_washer_3"
+        app:layout_constraintStart_toEndOf="@+id/Case_washer_3" />
+
+    <Button
+        android:id="@+id/Case_washer_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Case_washer_2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

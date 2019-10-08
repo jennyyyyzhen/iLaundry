@@ -34,8 +34,17 @@ public class AtwoodDorm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atwood_dorm);
+        setButtonDisplay("Atwood_dryer_1");
         setButtonDisplay("Atwood_dryer_2");
         setButtonDisplay("Atwood_dryer_3");
+        setButtonDisplay("Atwood_dryer_4");
+        setButtonDisplay("Atwood_dryer_5");
+        setButtonDisplay("Atwood_dryer_6");
+        setButtonDisplay("Atwood_washer_1");
+        setButtonDisplay("Atwood_washer_2");
+        setButtonDisplay("Atwood_washer_3");
+        setButtonDisplay("Atwood_washer_4");
+        setButtonDisplay("Atwood_washer_5");
     }
 
 
@@ -75,7 +84,7 @@ public class AtwoodDorm extends AppCompatActivity {
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
             @Override
             public void onTick(long l) {
-                button.setText("seconds" + l);
+                button.setText(Long.toString(l/60/1000)+" mins");
             }
 
             public void onFinish() {
@@ -84,7 +93,7 @@ public class AtwoodDorm extends AppCompatActivity {
         }.start();
     }
 
-    private void setButtonDisplay(String id){
+    private void setButtonDisplay(final String id){
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
         String machine = childNodes[1];
