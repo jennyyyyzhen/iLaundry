@@ -7,20 +7,77 @@
     tools:context=".EastDorm">
 
     <TextView
-        android:id="@+id/eastDescription"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginRight="143dp"
-        android:layout_marginBottom="618dp"
-        android:text="3 washers and 2 dryers"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="100dp"
+        android:text="3 washers, 2 dryers"
+        android:textSize="20sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/East_dryer_1"
+        android:layout_width="88dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="200dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <Button
+        android:id="@+id/East_dryer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/East_dryer_1"
+        app:layout_constraintStart_toEndOf="@+id/East_dryer_1" />
+
+
+    <Button
+        android:id="@+id/East_washer_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/East_dryer_1"
+        app:layout_constraintStart_toEndOf="@+id/East_dryer_2" />
+
+
+    <Button
+        android:id="@+id/East_washer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/East_dryer_1" />
+
+    <Button
+        android:id="@+id/East_washer_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="changeStatus"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/East_washer_2"
+        app:layout_constraintStart_toEndOf="@+id/East_washer_2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
