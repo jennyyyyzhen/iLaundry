@@ -2,4 +2,7 @@
     <string name="app_name">Laundry Management</string>
     <string name="edit_message">苏西是什么</string>
     <string name="button_">send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

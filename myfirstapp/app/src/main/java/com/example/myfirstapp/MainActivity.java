@@ -25,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
+        }
+    }
+
     /* The following functions would be called if the corresponding buttons get clicked by
      users. It would start a new activity and navigate user to the new page.
      */
@@ -92,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
         //called when the user taps the Atwood Dorm button
         Intent intent = new Intent(this, AtwoodDorm.class);
+        startActivity(intent);
+    }
+
+    public void logOut(View view){
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        mauth.signOut();
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 
