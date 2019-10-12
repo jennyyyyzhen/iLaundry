@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.Instant;
+
 
 public class AtwoodDorm extends AppCompatActivity {
 
@@ -56,28 +58,16 @@ public class AtwoodDorm extends AppCompatActivity {
         If the button displays other text message, then it means the machine is occupied. If
         users click on the machine, it will show a alert dialog to users.
      */
-    public void changeStatus(View view){
-        int viewID = view.getId();
-        String viewName = getResources().getResourceName(viewID);
-
-        String[] childNodes = viewName.split("_");
-        String dorm = childNodes[0].split("/")[1];
-        String machine = childNodes[1];
-        String num = childNodes[2];
+    public void changeStatus(View view) {
 
         Button button = (Button) view;
-        DatabaseReference node = database.child(dorm).child(machine).child(num);
-
         StringBuilder sb = new StringBuilder(button.getText());
         String status = sb.toString();
 
         if (status.equals("true")) {
-
             // if the machine is available then show an confirmation dialog
-            long now = Instant.now().toEpochMilli();
-            node.child("endTime").setValue(now+100*1000);
-            createConfirmationDialog(button,100*1000).show();
-        } else{
+            createConfirmationDialog(button).show();
+        } else {
 
             // if the machine is occupied, then show an alert dialog
             createAlertDialog().show();
@@ -90,12 +80,12 @@ public class AtwoodDorm extends AppCompatActivity {
     private void startTimer(View view, long timeInMili) {
         final Button button = (Button) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
-            
+
             @Override
             // update remaining time every mins.
             public void onTick(long l) {
-                String mins = Long.toString(l/60/1000);
-                button.setText(mins+" mins");
+                String seconds = Long.toString(l / 1000);
+                button.setText(seconds + " sec");
             }
 
             // update text of button when finished
@@ -109,7 +99,7 @@ public class AtwoodDorm extends AppCompatActivity {
         A helper function to set text message for a given button. If the end time is greater than
         current time, then start a countdown timer. Otherwise, display true.
      */
-    private void setButtonDisplay(final String id){
+    private void setButtonDisplay(final String id) {
         // acquire machine information from its id
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
@@ -118,39 +108,41 @@ public class AtwoodDorm extends AppCompatActivity {
 
         // find the corresponding button and node in the database
         int resID = getResources().getIdentifier(id, "id", getPackageName());
-        final Button button = ((Button) findViewById(resID));
-        final DatabaseReference NODE = database.child(dorm).child(machine).child(num).child("endTime");
+        final Button button = (Button) findViewById(resID);
+
+        DatabaseReference node = database.child(dorm).child(machine).child(num).child("endTime");
 
         // read and write data to the database
-        NODE.addListenerForSingleValueEvent(new ValueEventListener() {
+        node.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                long endtime = dataSnapshot.getValue(long.class);
+                long endTime = dataSnapshot.getValue(long.class);
                 long now = Instant.now().toEpochMilli();
-                if(endtime>now){
-                    startTimer(button,endtime-now);
-                }else{
+                if (endTime > now) {
+                    startTimer(button, endTime - now);
+                } else {
                     button.setText("true");
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
     }
 
     /*
       This function returns a alert dialog when the user click on a machine that is in use.
     */
-   private AlertDialog createAlertDialog() {
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private AlertDialog createAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-       builder.setMessage("This machine is in use")
-               .setTitle("Alert");
+        builder.setMessage("This machine is in use")
+                .setTitle("Alert");
 
-       AlertDialog dialog = builder.create();
-       return dialog;
-   }
+        AlertDialog dialog = builder.create();
+        return dialog;
+    }
 
 
    /*
@@ -158,27 +150,43 @@ public class AtwoodDorm extends AppCompatActivity {
    not. If the user choose yes, then it will start a timer with a given amount of time.
     */
 
-   private AlertDialog createConfirmationDialog(final Button button, final long time){
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private Dialog createConfirmationDialog(final Button button) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-       builder.setMessage("Start this machine")
-               .setCancelable(false)
-               .setPositiveButton("yes",new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog,int id) {
+        builder.setTitle("Start this machine")
+                .setItems(new String[]{"light", "regular"}, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        if (which == 0) {
+                            setTime(button, 100 * 1000);
+                            startTimer(button, 100 * 1000);
+                        }
+                        if (which == 1) {
+                            setTime(button, 50 * 1000);
+                            startTimer(button, 50 * 1000);
+                        }
+                    }});
 
-                       // if this button is clicked, start timer
-                       startTimer(button, time);
-                   }
-               })
-               .setNegativeButton("no",new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog,int id) {
-                       // if this button is clicked, just close
-                       // the dialog box and do nothing
-                       dialog.cancel();
-                   }
-               });
+        AlertDialog dialog = builder.create();
+        return dialog;
+    }
 
-       AlertDialog dialog = builder.create();
-       return dialog;
-   }
+
+    private void setTime(View view, long time){
+        int viewID = view.getId();
+        String viewName = getResources().getResourceName(viewID);
+
+        String[] childNodes = viewName.split("_");
+        String dorm = childNodes[0].split("/")[1];
+        String machine = childNodes[1];
+        String num = childNodes[2];
+
+        long now = Instant.now().toEpochMilli();
+        long endTime = time+now;
+
+        DatabaseReference node = database.child(dorm).child(machine).child(num);
+        node.child("endTime").setValue(endTime);
+        node.child("status").setValue(false);
+    }
 }
