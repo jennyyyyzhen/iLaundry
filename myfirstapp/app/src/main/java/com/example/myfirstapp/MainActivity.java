@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
         }
+        TextView greeting = findViewById(R.id.greeting);
+        greeting.setText("Hi "+currentUser.getDisplayName());
     }
 
     /* The following functions would be called if the corresponding buttons get clicked by

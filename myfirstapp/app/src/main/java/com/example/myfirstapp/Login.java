@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.auth.User;
@@ -34,7 +35,7 @@ public class Login extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email_address);
-        Log.e("email",email.getText().toString());
+        Log.e("password",password.getText().toString());
 
         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -42,16 +43,18 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.e("", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e("", "createUserWithEmail:failure", task.getException());
-                        }
 
-                        // ...
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(username.getText().toString()).build();
+                            user.updateProfile(profileUpdates);
+
+                            Toast.makeText(Login.this, username.getText().toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If sign up fails, display a message to the user.
+                            Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }});
-        Log.e("finished","finished");
     }
 
     public void setSignin(View view){
@@ -67,15 +70,12 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.e("email",user.getEmail());
+                            Toast.makeText(Login.this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
-
     }
 }
