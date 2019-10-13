@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,8 @@ import java.time.Instant;
 public class AtwoodDorm extends AppCompatActivity {
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
     @Override
     /*
@@ -172,7 +176,8 @@ public class AtwoodDorm extends AppCompatActivity {
         return dialog;
     }
 
-
+    /* update the ending time, status and student information in the database
+     */
     private void setTime(View view, long time){
         int viewID = view.getId();
         String viewName = getResources().getResourceName(viewID);
@@ -188,5 +193,6 @@ public class AtwoodDorm extends AppCompatActivity {
         DatabaseReference node = database.child(dorm).child(machine).child(num);
         node.child("endTime").setValue(endTime);
         node.child("status").setValue(false);
+        node.child("student").setValue(currentUser.getEmail());
     }
 }

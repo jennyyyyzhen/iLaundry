@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,11 +32,13 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
+            Toast.makeText(MainActivity.this, "please login first", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
+        } else {
+            TextView greeting = findViewById(R.id.greeting);
+            greeting.setText("Hi " + currentUser.getDisplayName());
         }
-        TextView greeting = findViewById(R.id.greeting);
-        greeting.setText("Hi "+currentUser.getDisplayName());
     }
 
     /* The following functions would be called if the corresponding buttons get clicked by
