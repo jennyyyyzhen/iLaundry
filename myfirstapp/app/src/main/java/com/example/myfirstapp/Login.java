@@ -55,14 +55,18 @@ public class Login extends AppCompatActivity {
                         }
                     }});
     }
-
+    
+    /*
+    Sign in button on click function
+    */
     public void setSignin(View view){
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email_address);
 
+        // check if either field is empty
         if(!checkRequirefields(password)) return;
         if(!checkRequirefields(email)) return;
-
+        
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,8 +83,12 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    /* 
+    If email or password field are empty, throw an exception.
+    */
     private boolean checkRequirefields(EditText editText){
         if(TextUtils.isEmpty(editText.getText())){
+            // Throw the error message to the user
             Toast.makeText(Login.this, "Email and password are required",Toast.LENGTH_SHORT).show();
             return false;
         }
