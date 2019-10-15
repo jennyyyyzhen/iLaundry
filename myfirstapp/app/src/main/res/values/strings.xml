@@ -5,4 +5,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Tutorialspoint</string>
+    <string name="compose_email">Compose Email</string>
 </resources>
