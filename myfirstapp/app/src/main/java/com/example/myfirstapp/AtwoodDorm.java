@@ -65,8 +65,7 @@ public class AtwoodDorm extends AppCompatActivity {
     public void changeStatus(View view) {
 
         Button button = (Button) view;
-        StringBuilder sb = new StringBuilder(button.getText());
-        String status = sb.toString();
+        String status = button.getText().toString();
 
         if (status.equals("true")) {
             // if the machine is available then show an confirmation dialog
@@ -124,8 +123,6 @@ public class AtwoodDorm extends AppCompatActivity {
                 long now = Instant.now().toEpochMilli();
                 if (endTime > now) {
                     startTimer(button, endTime - now);
-                } else {
-                    button.setText("true");
                 }
             }
 

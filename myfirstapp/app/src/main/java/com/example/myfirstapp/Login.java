@@ -47,6 +47,7 @@ public class Login extends AppCompatActivity {
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(username.getText().toString()).build();
                             user.updateProfile(profileUpdates);
+                            user.sendEmailVerification();
 
                             Toast.makeText(Login.this, "Welcome "+username.getText().toString(), Toast.LENGTH_SHORT).show();
                         } else {
