@@ -34,39 +34,35 @@ public class DrinkwardDorm extends AppCompatActivity {
         database.child("Drinkward").child("student").setValue(currentUser.getEmail());
     }
 
-    private void addNotification(String dormName) {
-        // Builds your notification
-        NotificationManager notification_manager = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder notification_builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String chanel_id = "3000";
-            CharSequence name = "Channel Name";
-            String description = "Chanel Description";
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel mChannel = new NotificationChannel(chanel_id, name, importance);
-            mChannel.setDescription(description);
-            mChannel.enableLights(true);
-            mChannel.setLightColor(Color.BLUE);
-            notification_manager.createNotificationChannel(mChannel);
-            notification_builder = new NotificationCompat.Builder(this, chanel_id);
-        } else {
-            notification_builder = new NotificationCompat.Builder(this);
-        }
+    public void goDrinkwardDormRoom1(View view){
 
+        //called when the user taps the East Dorm button
 
-        notification_builder.setSmallIcon(R.mipmap.laundry_service_round)
-                .setContentTitle("Your laundry is done in " + dormName + "'s laundry room.")
-                .setContentText("Please go and get it!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        Intent intent = new Intent(this, DrinkwardDormRoom1.class);
+        startActivity(intent);
+    }
 
-        // Creates the intent needed to show the notification
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification_builder.setContentIntent(contentIntent);
+    public void goDrinkwardDormRoom2(View view){
 
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, notification_builder.build());
+        //called when the user taps the East Dorm button
+
+        Intent intent = new Intent(this, DrinkwardDormRoom2.class);
+        startActivity(intent);
+    }
+
+    public void goDrinkwardDormRoom3(View view){
+
+        //called when the user taps the East Dorm button
+
+        Intent intent = new Intent(this, DrinkwardDormRoom3.class);
+        startActivity(intent);
+    }
+
+    public void goDrinkwardDormRoom4(View view){
+
+        //called when the user taps the East Dorm button
+
+        Intent intent = new Intent(this, DrinkwardDormRoom4.class);
+        startActivity(intent);
     }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="88dp"
         android:text="10 washers 10 dryers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -18,13 +18,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/room_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="140dp"
-        android:onClick="changeStatus"
-        android:text="Button"
+        android:layout_marginTop="208dp"
+        android:onClick="goDrinkwardDormRoom1"
+        android:text="Room 1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/room_2"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:onClick="goDrinkwardDormRoom2"
+        android:text="Room 2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/room_1"
+        app:layout_constraintStart_toEndOf="@+id/room_1" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+    <Button
+        android:id="@+id/room_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="52dp"
+        android:onClick="goDrinkwardDormRoom3"
+        android:text="Room 3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/room_1" />
+
+    <Button
+        android:id="@+id/room_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:onClick="goDrinkwardDormRoom4"
+        android:text="Room 4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/room_3"
+        app:layout_constraintStart_toEndOf="@+id/room_3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

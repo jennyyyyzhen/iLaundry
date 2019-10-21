@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DrinkwardDormRoom1">
+
+    <Button
+        android:id="@+id/Drinkward_room_1_washer_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="184dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Drinkward_room_1_washer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Drinkward_room_1_washer_1"
+        app:layout_constraintStart_toEndOf="@+id/Drinkward_room_1_washer_1" />
+
+    <Button
+        android:id="@+id/Drinkward_room_1_dryer_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="120dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Drinkward_room_1_washer_1" />
+
+    <Button
+        android:id="@+id/Drinkward_room_1_dryer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Drinkward_room_1_dryer_1"
+        app:layout_constraintStart_toEndOf="@+id/Drinkward_room_1_dryer_1" />
+</androidx.constraintlayout.widget.ConstraintLayout>
