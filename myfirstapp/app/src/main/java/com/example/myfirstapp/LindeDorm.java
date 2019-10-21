@@ -1,14 +1,25 @@
 package com.example.myfirstapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.Instant;
 
 public class LindeDorm extends AppCompatActivity {
+
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,29 +53,17 @@ public class LindeDorm extends AppCompatActivity {
        the check the corresponding value stored in the database. If the status is currently
        true, then changed it to false. Otherwise, change it to true
     */
-    public void changeStatus(View view){
-
-
-        int viewID = view.getId();
-        String viewName = getResources().getResourceName(viewID);
-
-        String[] childNodes = viewName.split("_");
-        String dorm = childNodes[0].split("/")[1];
-        String machine = childNodes[1];
-        String num = childNodes[2];
-
+    public void changeStatus(View view) {
 
         Button button = (Button) view;
-        DatabaseReference node = database.child(dorm).child(machine).child(num);
-
-        StringBuilder sb = new StringBuilder(button.getText());
-        String status = sb.toString();
+        String status = button.getText().toString();
 
         if (status.equals("true")) {
-            long now = Instant.now().toEpochMilli();
-            node.child("endTime").setValue(now+100*1000);
-            createConfirmationDialog(button,100*1000).show();
-        } else{
+            // if the machine is available then show an confirmation dialog
+            createConfirmationDialog(button).show();
+        } else {
+
+            // if the machine is occupied, then show an alert dialog
             createAlertDialog().show();
         }
     }
@@ -68,13 +71,19 @@ public class LindeDorm extends AppCompatActivity {
     private void startTimer(View view, long timeInMili) {
         final Button button = (Button) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
+
             @Override
+            // update remaining time every mins.
             public void onTick(long l) {
-                button.setText(Long.toString(l/60/1000)+" mins");
+                String seconds = Long.toString(l / 1000);
+                button.setText(seconds + " sec");
             }
 
+            // update text of button when finished
             public void onFinish() {
+
                 button.setText("true");
+                addNotification("Linde");
             }
         }.start();
     }
@@ -87,7 +96,8 @@ public class LindeDorm extends AppCompatActivity {
 
         int resID = getResources().getIdentifier(id, "id", getPackageName());
         final Button button = ((Button) findViewById(resID));
-        final DatabaseReference NODE = database.child(dorm).child(machine).child(num).child("endTime");
+
+        DatabaseReference NODE = database.child(dorm).child(machine).child(num).child("endTime");
 
         NODE.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -96,7 +106,7 @@ public class LindeDorm extends AppCompatActivity {
                 long now = Instant.now().toEpochMilli();
                 if(endtime>now){
                     startTimer(button,endtime-now);
-                }else{
+                } else {
                     button.setText("true");
                 }
             }
@@ -118,27 +128,80 @@ public class LindeDorm extends AppCompatActivity {
         return dialog;
     }
 
-    private AlertDialog createConfirmationDialog(final Button button, final long time){
+    private Dialog createConfirmationDialog(final Button button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage("Start this machine")
-                .setCancelable(false)
-                .setPositiveButton("yes",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        startTimer(button, time);
-                    }
-                })
-                .setNegativeButton("no",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
-
+        builder.setTitle("Start this machine")
+                .setItems(new String[]{"light", "regular"}, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        if (which == 0) {
+                            setTime(button, 100 * 1000);
+                            startTimer(button, 100 * 1000);
+                        }
+                        if (which == 1) {
+                            setTime(button, 50 * 1000);
+                            startTimer(button, 50 * 1000);
+                        }
+                    }});
 
         AlertDialog dialog = builder.create();
         return dialog;
+    }
+
+    private void setTime(View view, long time){
+        int viewID = view.getId();
+        String viewName = getResources().getResourceName(viewID);
+
+        String[] childNodes = viewName.split("_");
+        String dorm = childNodes[0].split("/")[1];
+        String machine = childNodes[1];
+        String num = childNodes[2];
+
+        long now = Instant.now().toEpochMilli();
+        long endTime = time+now;
+
+        DatabaseReference node = database.child(dorm).child(machine).child(num);
+        node.child("endTime").setValue(endTime);
+        node.child("status").setValue(false);
+        node.child("student").setValue(currentUser.getEmail());
+    }
+
+    private void addNotification(String dormName) {
+        // Builds your notification
+        NotificationManager notification_manager = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder notification_builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String chanel_id = "3000";
+            CharSequence name = "Channel Name";
+            String description = "Chanel Description";
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel mChannel = new NotificationChannel(chanel_id, name, importance);
+            mChannel.setDescription(description);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.BLUE);
+            notification_manager.createNotificationChannel(mChannel);
+            notification_builder = new NotificationCompat.Builder(this, chanel_id);
+        } else {
+            notification_builder = new NotificationCompat.Builder(this);
+        }
+
+
+        notification_builder.setSmallIcon(R.mipmap.laundry_service_round)
+                .setContentTitle("Your laundry is done in " + dormName + "'s laundry room.")
+                .setContentText("Please go and get it!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Creates the intent needed to show the notification
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification_builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, notification_builder.build());
     }
 }
 

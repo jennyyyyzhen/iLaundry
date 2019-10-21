@@ -32,7 +32,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <Button
         android:id="@+id/Atwood_dryer_2"
         android:layout_width="wrap_content"
@@ -93,7 +92,6 @@
         app:layout_constraintStart_toEndOf="@+id/Atwood_dryer_5" />
 
 
-
     <Button
         android:id="@+id/Atwood_washer_1"
         android:layout_width="wrap_content"
@@ -150,8 +148,6 @@
         android:text=""
         app:layout_constraintBaseline_toBaselineOf="@+id/Atwood_washer_4"
         app:layout_constraintStart_toEndOf="@+id/Atwood_washer_4" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
