@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 
+
+
 public class Login extends AppCompatActivity {
     EditText username, password, email;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
