@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             TextView greeting = findViewById(R.id.greeting);
-            greeting.setText("Hi " + currentUser.getDisplayName());
+            greeting.setText("Hi " + currentUser.getDisplayName() + "! Welcome to iLaundry! \nPlease select the dorm you are in:");
         }
     }
 

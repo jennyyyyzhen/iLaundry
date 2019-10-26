@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 
@@ -47,17 +51,20 @@ public class AtwoodDorm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atwood_dorm);
-        setButtonDisplay("Atwood_dryer_1");
-        setButtonDisplay("Atwood_dryer_2");
-        setButtonDisplay("Atwood_dryer_3");
-        setButtonDisplay("Atwood_dryer_4");
-        setButtonDisplay("Atwood_dryer_5");
-        setButtonDisplay("Atwood_dryer_6");
-        setButtonDisplay("Atwood_washer_1");
-        setButtonDisplay("Atwood_washer_2");
-        setButtonDisplay("Atwood_washer_3");
-        setButtonDisplay("Atwood_washer_4");
-        setButtonDisplay("Atwood_washer_5");
+        setTimeDisplay("Atwood_dryer_1");
+        setTimeDisplay("Atwood_dryer_2");
+        setTimeDisplay("Atwood_dryer_3");
+        setTimeDisplay("Atwood_dryer_4");
+        setTimeDisplay("Atwood_dryer_5");
+        setTimeDisplay("Atwood_dryer_6");
+
+        setTimeDisplay("Atwood_washer_1");
+        setTimeDisplay("Atwood_washer_2");
+        setTimeDisplay("Atwood_washer_3");
+        setTimeDisplay("Atwood_washer_4");
+        setTimeDisplay("Atwood_washer_5");
+
+
     }
 
 
@@ -72,12 +79,14 @@ public class AtwoodDorm extends AppCompatActivity {
      */
     public void changeStatus(View view) {
 
-        Button button = (Button) view;
-        String status = button.getText().toString();
+        ImageButton button = (ImageButton) view;
+        String textTag = button.getTag().toString().substring(2);
+        TextView text = (TextView) findViewById(R.id.atwood).findViewWithTag(textTag);
+        String status = text.getText().toString();
 
-        if (status.equals("true")) {
+        if (status.equals("Available")) {
             // if the machine is available then show an confirmation dialog
-            createConfirmationDialog(button).show();
+            createConfirmationDialog(text).show();
         } else {
 
             // if the machine is occupied, then show an alert dialog
@@ -89,20 +98,20 @@ public class AtwoodDorm extends AppCompatActivity {
         Start to countdown given amount of time when a button is clicked.
      */
     private void startTimer(View view, long timeInMili) {
-        final Button button = (Button) view;
+        final TextView status = (TextView) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
 
             @Override
             // update remaining time every mins.
             public void onTick(long l) {
                 String seconds = Long.toString(l / 1000);
-                button.setText(seconds + " sec");
+                status.setText(seconds + " sec");
             }
 
             // update text of button when finished
             public void onFinish() {
 
-                button.setText("true");
+                status.setText("Available");
                 addNotification("Atwood");
             }
         }.start();
@@ -112,7 +121,7 @@ public class AtwoodDorm extends AppCompatActivity {
         A helper function to set text message for a given button. If the end time is greater than
         current time, then start a countdown timer. Otherwise, display true.
      */
-    private void setButtonDisplay(final String id) {
+    private void setTimeDisplay(final String id) {
         // acquire machine information from its id
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
@@ -121,7 +130,7 @@ public class AtwoodDorm extends AppCompatActivity {
 
         // find the corresponding button and node in the database
         int resID = getResources().getIdentifier(id, "id", getPackageName());
-        final Button button = (Button) findViewById(resID);
+        final TextView status = (TextView) findViewById(resID);
 
         DatabaseReference node = database.child(dorm).child(machine).child(num).child("endTime");
 
@@ -132,9 +141,9 @@ public class AtwoodDorm extends AppCompatActivity {
                 long endTime = dataSnapshot.getValue(long.class);
                 long now = Instant.now().toEpochMilli();
                 if (endTime > now) {
-                    startTimer(button, endTime - now);
+                    startTimer(status, endTime - now);
                 } else {
-                    button.setText("true");
+                    status.setText("Available");
                 }
             }
 
@@ -163,7 +172,7 @@ public class AtwoodDorm extends AppCompatActivity {
    not. If the user choose yes, then it will start a timer with a given amount of time.
     */
 
-    private Dialog createConfirmationDialog(final Button button) {
+    private Dialog createConfirmationDialog(final TextView text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Start this machine")
@@ -172,12 +181,12 @@ public class AtwoodDorm extends AppCompatActivity {
                         // The 'which' argument contains the index position
                         // of the selected item
                         if (which == 0) {
-                            setTime(button, 100 * 1000);
-                            startTimer(button, 100 * 1000);
+                            setTime(text, 100 * 1000);
+                            startTimer(text, 100 * 1000);
                         }
                         if (which == 1) {
-                            setTime(button, 50 * 1000);
-                            startTimer(button, 50 * 1000);
+                            setTime(text, 50 * 1000);
+                            startTimer(text, 50 * 1000);
                         }
                     }});
 

@@ -7,16 +7,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/notification"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="notification"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/North"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -131,8 +121,8 @@
 
     <TextView
         android:id="@+id/greeting"
-        android:layout_width="145dp"
-        android:layout_height="21dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="52dp"
         app:layout_constraintStart_toStartOf="parent"
