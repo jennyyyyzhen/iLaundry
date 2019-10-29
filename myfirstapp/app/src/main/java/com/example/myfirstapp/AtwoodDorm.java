@@ -214,6 +214,8 @@ public class AtwoodDorm extends AppCompatActivity {
         node.child("student").setValue(currentUser.getEmail());
     }
 
+    /* send out notification(s) to the user when a machine(dryer/washer) is done
+     */
     private void addNotification(String dormName) {
         // Builds your notification
         NotificationManager notification_manager = (NotificationManager) this

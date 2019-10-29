@@ -28,7 +28,8 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    /* onCreate function helps set up the the layout
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* onStart function helps set up the first page the user sees, including a login page,
+    and a welcome message
+     */
     @Override
     protected void onStart(){
         super.onStart();
@@ -142,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    /* Log Out function helps the user to log out of their credentials
+     */
     public void logOut(View view){
         FirebaseAuth mauth = FirebaseAuth.getInstance();
         mauth.signOut();
