@@ -19,7 +19,11 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 
-
+/*
+    Login function for users to sign up or sign in, uses interface AppCompatActivity
+    Sign up:create new credentials in the database
+    Sign in:using existing credentials to log in
+    */
 public class Login extends AppCompatActivity {
     EditText username, password, email;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -30,6 +34,10 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+
+    /*
+    Sign up:create new credentials in the database
+    */
     public void setSignUp(View view){
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -60,7 +68,7 @@ public class Login extends AppCompatActivity {
     }
     
     /*
-    Sign in button on click function
+    Sign in:using existing credentials to log in
     */
     public void setSignin(View view){
         password = (EditText) findViewById(R.id.password);
