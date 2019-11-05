@@ -69,6 +69,9 @@ public class NorthDorm extends AppCompatActivity {
         }
     }
 
+    /*
+        Start to countdown given amount of time when a button is clicked.
+     */
     private void startTimer(View view, long timeInMili) {
         final Button button = (Button) view;
         CountDownTimer countDownTimer = new CountDownTimer(timeInMili, 1000) {
@@ -84,6 +87,10 @@ public class NorthDorm extends AppCompatActivity {
         }.start();
     }
 
+    /*
+        A helper function to set text message for a given button. If the end time is greater than
+        current time, then start a countdown timer. Otherwise, display true.
+     */
     private void setButtonDisplay(final String id){
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
