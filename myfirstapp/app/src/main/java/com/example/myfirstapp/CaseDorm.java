@@ -49,22 +49,24 @@ public class CaseDorm extends AppCompatActivity {
     */
     public void changeStatus(View view){
 
-
+        //create variables for status
         int viewID = view.getId();
         String viewName = getResources().getResourceName(viewID);
 
+        //create strings for status
         String[] childNodes = viewName.split("_");
         String dorm = childNodes[0].split("/")[1];
         String machine = childNodes[1];
         String num = childNodes[2];
 
-
+        //create button
         Button button = (Button) view;
         DatabaseReference node = database.child(dorm).child(machine).child(num);
 
         StringBuilder sb = new StringBuilder(button.getText());
         String status = sb.toString();
 
+        //display time
         if (status.equals("true")) {
             long now = Instant.now().toEpochMilli();
             node.child("endTime").setValue(now+100*1000);
@@ -118,6 +120,9 @@ public class CaseDorm extends AppCompatActivity {
         });
     }
 
+    /*
+      This function returns a alert dialog when the user click on a machine that is in use.
+    */
     private AlertDialog createAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -128,6 +133,11 @@ public class CaseDorm extends AppCompatActivity {
         return dialog;
     }
 
+
+    /*
+   This function returns a alert dialog that allows user to choose whether to start a machine or
+   not. If the user choose yes, then it will start a timer with a given amount of time.
+    */
     private AlertDialog createConfirmationDialog(final Button button, final long time){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -151,6 +161,8 @@ public class CaseDorm extends AppCompatActivity {
         return dialog;
     }
 
+    /* send out notification(s) to the user when a machine(dryer/washer) is done
+     */
     private void addNotification(String dormName) {
         // Builds your notification
         NotificationManager notification_manager = (NotificationManager) this

@@ -118,6 +118,10 @@ public class LindeDorm extends AppCompatActivity {
         });
     }
 
+    /*
+   This function returns a alert dialog that allows user to choose whether to start a machine or
+   not. If the user choose yes, then it will start a timer with a given amount of time.
+    */
     private AlertDialog createAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -168,6 +172,8 @@ public class LindeDorm extends AppCompatActivity {
         node.child("student").setValue(currentUser.getEmail());
     }
 
+    /* send out notification(s) to the user when a machine(dryer/washer) is done
+     */
     private void addNotification(String dormName) {
         // Builds your notification
         NotificationManager notification_manager = (NotificationManager) this

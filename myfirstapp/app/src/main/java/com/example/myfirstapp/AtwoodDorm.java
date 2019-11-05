@@ -159,9 +159,12 @@ public class AtwoodDorm extends AppCompatActivity {
     private AlertDialog createAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        //helps sending messages to notify "This machine is in use"
+        //helps set alert
         builder.setMessage("This machine is in use")
                 .setTitle("Alert");
 
+        //helps set dialog
         AlertDialog dialog = builder.create();
         return dialog;
     }
@@ -200,6 +203,7 @@ public class AtwoodDorm extends AppCompatActivity {
         int viewID = view.getId();
         String viewName = getResources().getResourceName(viewID);
 
+        //create string variables for time
         String[] childNodes = viewName.split("_");
         String dorm = childNodes[0].split("/")[1];
         String machine = childNodes[1];
@@ -208,6 +212,7 @@ public class AtwoodDorm extends AppCompatActivity {
         long now = Instant.now().toEpochMilli();
         long endTime = time+now;
 
+        //set values for time variables
         DatabaseReference node = database.child(dorm).child(machine).child(num);
         node.child("endTime").setValue(endTime);
         node.child("status").setValue(false);
@@ -221,6 +226,8 @@ public class AtwoodDorm extends AppCompatActivity {
         NotificationManager notification_manager = (NotificationManager) this
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder notification_builder;
+
+        //condition for notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String chanel_id = "3000";
             CharSequence name = "Channel Name";

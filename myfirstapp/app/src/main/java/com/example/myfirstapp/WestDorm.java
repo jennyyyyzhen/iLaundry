@@ -115,6 +115,10 @@ public class WestDorm extends AppCompatActivity {
         });
     }
 
+
+    /*
+      This function returns a alert dialog when the user click on a machine that is in use.
+    */
     private AlertDialog createAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -125,6 +129,10 @@ public class WestDorm extends AppCompatActivity {
         return dialog;
     }
 
+    /*
+   This function returns a alert dialog that allows user to choose whether to start a machine or
+   not. If the user choose yes, then it will start a timer with a given amount of time.
+    */
     private AlertDialog createConfirmationDialog(final Button button, final long time){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -148,6 +156,9 @@ public class WestDorm extends AppCompatActivity {
         return dialog;
     }
 
+
+    /* send out notification(s) to the user when a machine(dryer/washer) is done
+     */
     private void addNotification(String dormName) {
         // Builds your notification
         NotificationManager notification_manager = (NotificationManager) this
