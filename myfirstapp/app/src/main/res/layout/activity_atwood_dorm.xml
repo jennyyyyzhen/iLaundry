@@ -93,11 +93,12 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="5 washers, 6 dryers"
-        android:textSize="20sp"
+        android:layout_marginTop="72dp"
+        android:text="There are 5 washers and 6 dryers in this laundry room. "
+        android:textSize="14sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -296,6 +297,18 @@
         android:onClick="changeStatus"
         android:tag="i_Atwood_dryer_3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="345dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="100dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 

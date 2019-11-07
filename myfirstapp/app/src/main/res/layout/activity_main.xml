@@ -8,11 +8,10 @@
 
     <Button
         android:id="@+id/North"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:onClick="goNorthDorm"
         android:text="North"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,11 +19,10 @@
 
     <Button
         android:id="@+id/East"
-        android:layout_width="88dp"
+        android:layout_width="120dp"
         android:layout_height="52dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="152dp"
         android:onClick="goEastDorm"
         android:text="East"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,44 +30,44 @@
 
     <Button
         android:id="@+id/South"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="6dp"
         android:onClick="goSouthDorm"
         android:text="South"
         app:layout_constraintBaseline_toBaselineOf="@+id/East"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Sontag" />
 
     <Button
         android:id="@+id/Sontag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
         android:onClick="goSontagDorm"
         android:text="Sontag"
         app:layout_constraintBaseline_toBaselineOf="@+id/East"
+        app:layout_constraintEnd_toStartOf="@+id/South"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/East" />
 
     <Button
         android:id="@+id/Drinkward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="6dp"
         android:onClick="goDrinkwardDorm"
         android:text="Drinkward"
         app:layout_constraintBaseline_toBaselineOf="@+id/North"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/West" />
 
     <Button
         android:id="@+id/Linde"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:onClick="goLindeDorm"
         android:text="Linde"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,43 +75,45 @@
 
     <Button
         android:id="@+id/Case"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
         android:onClick="goCaseDorm"
         android:text="Case"
         app:layout_constraintBaseline_toBaselineOf="@+id/Atwood"
+        app:layout_constraintEnd_toStartOf="@+id/Atwood"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Linde" />
 
     <Button
         android:id="@+id/Atwood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="6dp"
         android:onClick="goAtwoodDorm"
         android:text="Atwood"
         app:layout_constraintBaseline_toBaselineOf="@+id/Linde"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Case" />
 
     <Button
         android:id="@+id/West"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
         android:onClick="goWestDorm"
         android:text="West"
         app:layout_constraintBaseline_toBaselineOf="@+id/North"
+        app:layout_constraintEnd_toStartOf="@+id/Drinkward"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/North" />
 
     <Button
         android:id="@+id/log_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="43dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="144dp"
         android:onClick="logOut"
         android:text="Log out"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -125,8 +125,22 @@
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="52dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_navigation"
+        android:layout_width="410dp"
+        android:layout_height="53dp"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

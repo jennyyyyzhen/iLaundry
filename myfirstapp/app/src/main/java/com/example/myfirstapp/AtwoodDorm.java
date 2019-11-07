@@ -42,6 +42,9 @@ public class AtwoodDorm extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
+    static int availableWashers = 5;
+    static int availableDryers = 6;
+
 
     @Override
     /*
@@ -51,6 +54,7 @@ public class AtwoodDorm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atwood_dorm);
+
         setTimeDisplay("Atwood_dryer_1");
         setTimeDisplay("Atwood_dryer_2");
         setTimeDisplay("Atwood_dryer_3");
@@ -64,6 +68,8 @@ public class AtwoodDorm extends AppCompatActivity {
         setTimeDisplay("Atwood_washer_4");
         setTimeDisplay("Atwood_washer_5");
 
+        TextView text = (TextView) findViewById(R.id.info);
+        text.setText("Currently there are " + String.valueOf(availableDryers) + " dryers and " + String.valueOf(availableWashers) + " washers available");
 
     }
 
@@ -81,12 +87,18 @@ public class AtwoodDorm extends AppCompatActivity {
 
         ImageButton button = (ImageButton) view;
         String textTag = button.getTag().toString().substring(2);
+        String machine = button.getTag().toString().split("_")[2];
         TextView text = (TextView) findViewById(R.id.atwood).findViewWithTag(textTag);
         String status = text.getText().toString();
 
         if (status.equals("Available")) {
             // if the machine is available then show an confirmation dialog
             createConfirmationDialog(text).show();
+            if (machine.equals("dryer")) {
+                availableDryers--;
+            } else {
+                availableWashers--;
+            }
         } else {
 
             // if the machine is occupied, then show an alert dialog
@@ -113,6 +125,12 @@ public class AtwoodDorm extends AppCompatActivity {
 
                 status.setText("Available");
                 addNotification("Atwood");
+                String machine = status.getTag().toString().split("_")[1];
+                if (machine.equals("dryer")) {
+                    availableDryers++;
+                } else {
+                    availableWashers++;
+                }
             }
         }.start();
     }
@@ -125,7 +143,7 @@ public class AtwoodDorm extends AppCompatActivity {
         // acquire machine information from its id
         String[] childNodes = id.split("_");
         String dorm = childNodes[0];
-        String machine = childNodes[1];
+        final String machine = childNodes[1];
         String num = childNodes[2];
 
         // find the corresponding button and node in the database

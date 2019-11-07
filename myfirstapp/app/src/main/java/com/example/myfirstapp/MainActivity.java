@@ -1,8 +1,11 @@
 package com.example.myfirstapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,16 +16,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Timer;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -34,40 +43,41 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    protected void sendEmail() {
-        Log.i("Send email", "");
-        String[] TO = {""};
-        String[] CC = {""};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.main_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_map);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_timer:
+                        Intent intentTimer = new Intent(MainActivity.this, AnimatedTimer.class);
+                        startActivity(intentTimer);
+                        break;
+                    case R.id.action_map:
+                        Intent intentMap = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intentMap);
+                        break;
+                    case R.id.action_account:
+                        Intent intentProfile = new Intent(MainActivity.this, Profile.class);
+                        startActivity(intentProfile);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     /* onStart function helps set up the first page the user sees, including a login page,
     and a welcome message
      */
     @Override
-    protected void onStart(){
+    public void onStart(){
         super.onStart();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
-            Toast.makeText(MainActivity.this, "please login first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "please login first", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
         } else {
