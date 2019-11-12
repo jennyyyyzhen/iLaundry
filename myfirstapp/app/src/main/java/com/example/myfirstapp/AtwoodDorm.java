@@ -39,6 +39,9 @@ import java.time.Instant;
 
 public class AtwoodDorm extends AppCompatActivity {
 
+    /*
+        create instance variables that set up washsers and dryers in Atwood
+         */
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
