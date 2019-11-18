@@ -4,16 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".Profile">
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="230dp"
-        android:layout_height="474dp"
+        android:layout_width="180dp"
+        android:layout_height="32dp"
         android:layout_marginTop="140dp"
         android:text="TextView"
-        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="180dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="44dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+    <Button
+        android:id="@+id/edit_username"
+        android:layout_width="64dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="28dp"
+        android:onClick="showInputDialog"
+        android:text="Edit"
+        app:layout_constraintBaseline_toBaselineOf="@+id/user_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
