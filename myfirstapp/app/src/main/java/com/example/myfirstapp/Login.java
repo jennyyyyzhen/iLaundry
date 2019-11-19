@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /*
@@ -35,11 +40,26 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    public void getExtraInformation(View view) {
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+        email = (EditText) findViewById(R.id.email_address);
+
+        if(!checkRequirefields(password)) return;
+        if(!checkRequirefields(email)) return;
+
+        Intent intent = new Intent(this, SignUpInformation.class);
+        intent.putExtra("username", username.getText().toString());
+        intent.putExtra("password", password.getText().toString());
+        intent.putExtra("email", email.getText().toString());
+
+        startActivity(intent);
+    }
 
     /*
-    Sign up:create new credentials in the database
-    */
-    public void setSignUp(View view){
+Sign up:create new credentials in the database
+*/
+    public void setSignUp(View view, String dorm){
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email_address);
@@ -66,8 +86,20 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }});
+
+        LaundryUser user = new LaundryUser();
+        user.setName(username.getText().toString());
+        //user.setYear(year.getText().toString());
+        user.setDorm(dorm);
+        Map<String, String> userData = new HashMap<String, String>();
+
+        userData.put("Username", username.getText().toString());
+        userData.put("Dorm", dorm);
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child("user").push().setValue(userData);
     }
-    
+
     /*
     Sign in:using existing credentials to log in
     */
