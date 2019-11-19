@@ -242,7 +242,11 @@ public class AtwoodDorm extends AppCompatActivity {
         DatabaseReference node = database.child(dorm).child(machine).child(num);
         node.child("endTime").setValue(endTime);
         node.child("status").setValue(false);
-        node.child("student").setValue(currentUser.getEmail());
+
+        String email = currentUser.getEmail().split("@")[0];
+
+        database.child("user").child(email).child("machine").setValue(viewName.split("/")[1]);
+
     }
 
     

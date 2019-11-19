@@ -44,13 +44,11 @@ public class SignUpInformation extends AppCompatActivity {
 
         final RadioGroup radioDormGroup = (RadioGroup) findViewById(R.id.select_dorm);
         Button submitDorm = (Button) findViewById(R.id.submit_dorm);
-        Toast.makeText(getApplicationContext(),"Hello Javatpoint1",Toast.LENGTH_SHORT).show();
 
         submitDorm.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Hello Javatpoint0",Toast.LENGTH_SHORT).show();
 
                 // get selected radio button from radioGroup
                 int selectedId = radioDormGroup.getCheckedRadioButtonId();
@@ -59,9 +57,9 @@ public class SignUpInformation extends AppCompatActivity {
                 RadioButton selectedDorm = (RadioButton) findViewById(selectedId);
                 String dorm = selectedDorm.getText().toString();
 
-                Toast.makeText(getApplicationContext(),"Hello Javatpoint2",Toast.LENGTH_SHORT).show();
+
                 setSignUp(username, password, email, dorm);
-                Toast.makeText(getApplicationContext(),"Hello Javatpoint3",Toast.LENGTH_SHORT).show();
+
             }
 
         });
@@ -94,7 +92,7 @@ Sign up:create new credentials in the database
                         }
                     }});
 
-        LaundryUser user = new LaundryUser();
+        /*LaundryUser user = new LaundryUser();
         user.setName(username);
         //user.setYear(year.getText().toString());
         user.setDorm(dorm);
@@ -102,9 +100,12 @@ Sign up:create new credentials in the database
 
         userData.put("Username", username);
         userData.put("Dorm", dorm);
-
+        userData.put("Email", email);
+*/
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("user").push().setValue(userData);
+        database.child("user").child(email.split("@")[0]).child("dorm").setValue(dorm);
+
+
     }
 
 
