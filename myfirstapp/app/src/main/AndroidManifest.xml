@@ -55,6 +55,15 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+            android:name=".SignUpInformation"
+            android:parentActivityName=".Login">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".Profile"
             android:parentActivityName=".MainActivity">
 
