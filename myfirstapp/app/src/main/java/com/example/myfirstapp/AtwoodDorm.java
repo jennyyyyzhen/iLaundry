@@ -45,8 +45,8 @@ public class AtwoodDorm extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
-    static int availableWashers = 5;
-    static int availableDryers = 6;
+    static int availableWashers = 0;
+    static int availableDryers = 0;
 
 
     @Override
@@ -71,16 +71,23 @@ public class AtwoodDorm extends AppCompatActivity {
         setTimeDisplay("Atwood_washer_4");
         setTimeDisplay("Atwood_washer_5");
 
+        // Bug
         TextView text = (TextView) findViewById(R.id.info);
+        Log.e("available washer", String.valueOf(availableWashers));
         text.setText("Currently there are " + String.valueOf(availableDryers) + " dryers and " + String.valueOf(availableWashers) + " washers available");
 
+
+
     }
+
+
+
 
 
     /* This function is called when a button is clicked. It gets the ID of that button and
         then read the text of that button.
 
-        If the button displays "true", it means the machine is available now. We will
+        If the button displays "available", it means the machine is available now. We will
         create a time stamp and show a dialog. Users can choose whether or not to start that machine
 
         If the button displays other text message, then it means the machine is occupied. If
@@ -97,11 +104,6 @@ public class AtwoodDorm extends AppCompatActivity {
         if (status.equals("Available")) {
             // if the machine is available then show an confirmation dialog
             createConfirmationDialog(text).show();
-            if (machine.equals("dryer")) {
-                availableDryers--;
-            } else {
-                availableWashers--;
-            }
         } else {
 
             // if the machine is occupied, then show an alert dialog
@@ -129,11 +131,6 @@ public class AtwoodDorm extends AppCompatActivity {
                 status.setText("Available");
                 addNotification("Atwood");
                 String machine = status.getTag().toString().split("_")[1];
-                if (machine.equals("dryer")) {
-                    availableDryers++;
-                } else {
-                    availableWashers++;
-                }
             }
         }.start();
     }
@@ -165,6 +162,14 @@ public class AtwoodDorm extends AppCompatActivity {
                     startTimer(status, endTime - now);
                 } else {
                     status.setText("Available");
+                    Log.e("machine", machine);
+                    if(machine.equals("washer")){
+                        availableWashers++;
+                        Log.e("available washer", String.valueOf(availableWashers));
+                    }
+                    if(machine.equals("dryer")){
+                        availableDryers++;
+                    }
                 }
             }
 
@@ -240,6 +245,7 @@ public class AtwoodDorm extends AppCompatActivity {
         node.child("student").setValue(currentUser.getEmail());
     }
 
+    
     /* send out notification(s) to the user when a machine(dryer/washer) is done
      */
     private void addNotification(String dormName) {
