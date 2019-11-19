@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/select_dorm"
+        android:layout_width="337dp"
+        android:layout_height="296dp"
+        android:layout_marginBottom="172dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioAtwood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Atwood" />
+
+        <RadioButton
+            android:id="@+id/radioCase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Case" />
+
+        <RadioButton
+            android:id="@+id/radioDrinkward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drinkward" />
+
+        <RadioButton
+            android:id="@+id/radioSouth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="South" />
+
+        <RadioButton
+            android:id="@+id/radioEast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="East" />
+
+        <RadioButton
+            android:id="@+id/radioWest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="West" />
+
+        <RadioButton
+            android:id="@+id/radioNorth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="North" />
+
+        <RadioButton
+            android:id="@+id/radioLinde"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Linde" />
+
+        <RadioButton
+            android:id="@+id/radioSontag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sontag" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/dorm"
+        android:layout_width="261dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="128dp"
+        android:text="Select the dorm you currently live in"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/submit_dorm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:onClick="setSignUp"
+        android:text="Sign Up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

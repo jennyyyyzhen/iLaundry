@@ -197,7 +197,7 @@ public class AtwoodDorm extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Start this machine")
-                .setItems(new String[]{"light", "regular"}, new DialogInterface.OnClickListener() {
+                .setItems(new String[]{"Regular", "Light"}, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position
                         // of the selected item
