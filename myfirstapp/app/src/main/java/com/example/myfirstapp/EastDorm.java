@@ -39,9 +39,9 @@ public class EastDorm extends AppCompatActivity {
         setButtonDisplay("East_dryer_2");
     }
 
-    /* This function is called when a button is clicked. It gets the ID of that button and
-       the check the corresponding value stored in the database. If the status is currently
-       true, then changed it to false. Otherwise, change it to true
+    /* This function is called when a button is clicked.
+       It gets the ID of that button and the check the corresponding value stored in the database.
+       If the status is currently is true, then changed it to false. Otherwise, change it to true
     */
     public void changeStatus(View view){
 
