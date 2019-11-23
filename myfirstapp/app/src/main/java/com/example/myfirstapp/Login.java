@@ -56,49 +56,6 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
-Sign up:create new credentials in the database
-*/
-    public void setSignUp(View view, String dorm){
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        email = (EditText) findViewById(R.id.email_address);
-
-        if(!checkRequirefields(password)) return;
-        if(!checkRequirefields(email)) return;
-
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(username.getText().toString()).build();
-                            user.updateProfile(profileUpdates);
-                            user.sendEmailVerification();
-
-                            Toast.makeText(Login.this, "Welcome "+username.getText().toString(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign up fails, display a message to the user.
-                            Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }});
-
-        LaundryUser user = new LaundryUser();
-        user.setName(username.getText().toString());
-        //user.setYear(year.getText().toString());
-        user.setDorm(dorm);
-        Map<String, String> userData = new HashMap<String, String>();
-
-        userData.put("Username", username.getText().toString());
-        userData.put("Dorm", dorm);
-
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("user").push().setValue(userData);
-    }
 
     /*
     Sign in:using existing credentials to log in
@@ -119,6 +76,8 @@ Sign up:create new credentials in the database
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(Login.this, "Welcome "+user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            Intent intent =new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();

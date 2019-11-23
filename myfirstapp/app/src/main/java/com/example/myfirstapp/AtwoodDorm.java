@@ -5,6 +5,7 @@ import androidx.core.app.NotificationCompat;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,16 +13,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
+
 
 import java.time.Instant;
 
@@ -71,11 +72,8 @@ public class AtwoodDorm extends AppCompatActivity {
         setTimeDisplay("Atwood_washer_4");
         setTimeDisplay("Atwood_washer_5");
 
-        // Bug
-        TextView text = (TextView) findViewById(R.id.info);
-        Log.e("available washer", String.valueOf(availableWashers));
-        text.setText("Currently there are " + String.valueOf(availableDryers) + " dryers and " + String.valueOf(availableWashers) + " washers available");
 
+        displayAvailableMachine();
 
 
     }
@@ -162,14 +160,6 @@ public class AtwoodDorm extends AppCompatActivity {
                     startTimer(status, endTime - now);
                 } else {
                     status.setText("Available");
-                    Log.e("machine", machine);
-                    if(machine.equals("washer")){
-                        availableWashers++;
-                        Log.e("available washer", String.valueOf(availableWashers));
-                    }
-                    if(machine.equals("dryer")){
-                        availableDryers++;
-                    }
                 }
             }
 
@@ -249,6 +239,56 @@ public class AtwoodDorm extends AppCompatActivity {
 
     }
 
+    private void displayAvailableMachine(){
+        availableDryers=0;
+        availableWashers=0;
+
+        DatabaseReference node = database.child("Atwood").child("washer");
+        node.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               for(DataSnapshot ds: dataSnapshot.getChildren()){
+                   long now = Instant.now().toEpochMilli();
+                   long endTime= ds.child("endTime").getValue(long.class);
+                   Log.e("endTime",String.valueOf(endTime));
+                   if(endTime < now) {
+                       availableWashers++;
+                       TextView text = (TextView) findViewById(R.id.info);
+                       text.setText("Currently there are " + String.valueOf(availableDryers) + " dryers and " + String.valueOf(availableWashers) + " washers available");
+
+                   }
+               }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        DatabaseReference node2 = database.child("Atwood").child("dryer");
+        node2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    long now = Instant.now().toEpochMilli();
+                    long endTime= ds.child("endTime").getValue(long.class);
+                    if(endTime < now) {
+                        availableDryers++;
+                        TextView text = (TextView) findViewById(R.id.info);
+                        text.setText("Currently there are " + String.valueOf(availableDryers) + " dryers and " + String.valueOf(availableWashers) + " washers available");
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+    }
+
+
+
     
     /* send out notification(s) to the user when a machine(dryer/washer) is done
      */
@@ -279,6 +319,9 @@ public class AtwoodDorm extends AppCompatActivity {
                 .setContentTitle("Your laundry is done in " + dormName + "'s laundry room.")
                 .setContentText("Please go and get it!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        notification_builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
 
         // Creates the intent needed to show the notification
         Intent notificationIntent = new Intent(this, MainActivity.class);

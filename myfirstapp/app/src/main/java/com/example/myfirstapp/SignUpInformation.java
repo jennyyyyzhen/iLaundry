@@ -1,5 +1,6 @@
 package com.example.myfirstapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -69,7 +70,7 @@ public class SignUpInformation extends AppCompatActivity {
     /*
 Sign up:create new credentials in the database
 */
-    public void setSignUp(String username, String password, String email, String dorm){
+    public void setSignUp(final String username, final String password,final String email, final String dorm){
         final String currentUsername = username;
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -86,24 +87,19 @@ Sign up:create new credentials in the database
                             user.sendEmailVerification();
 
                             Toast.makeText(SignUpInformation.this, "Welcome "+currentUsername, Toast.LENGTH_SHORT).show();
+
+                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                            database.child("user").child(email.split("@")[0]).child("dorm").setValue(dorm);
+
+                            Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign up fails, display a message to the user.
                             Toast.makeText(SignUpInformation.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }});
 
-        /*LaundryUser user = new LaundryUser();
-        user.setName(username);
-        //user.setYear(year.getText().toString());
-        user.setDorm(dorm);
-        Map<String, String> userData = new HashMap<String, String>();
 
-        userData.put("Username", username);
-        userData.put("Dorm", dorm);
-        userData.put("Email", email);
-*/
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("user").child(email.split("@")[0]).child("dorm").setValue(dorm);
 
 
     }

@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/laundry_service"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Launcher"
+            android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DrinkwardDormRoom4"
             android:parentActivityName=".DrinkwardDorm">
@@ -163,13 +171,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
