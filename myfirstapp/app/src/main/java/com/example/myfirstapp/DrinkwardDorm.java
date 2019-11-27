@@ -28,6 +28,8 @@ public class DrinkwardDorm extends AppCompatActivity {
         setContentView(R.layout.activity_drinkward_dorm);
     }
 
+    /* a method used to change the status
+     */
     public void changeStatus(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();

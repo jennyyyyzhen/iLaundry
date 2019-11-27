@@ -239,6 +239,9 @@ public class AtwoodDorm extends AppCompatActivity {
 
     }
 
+
+    /* a method used to show the available machines
+     */
     private void displayAvailableMachine(){
         availableDryers=0;
         availableWashers=0;
