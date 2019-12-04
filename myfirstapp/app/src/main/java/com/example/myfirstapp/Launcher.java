@@ -19,7 +19,7 @@ public class Launcher extends AppCompatActivity {
         ThreadUtils.runInThread(new Runnable() {
             @Override
             public void run() {
-                SystemClock.sleep(30000);
+                SystemClock.sleep(3000);
 
                 Intent intent = new Intent(Launcher.this, MainActivity.class);
                 startActivity(intent);
@@ -28,11 +28,9 @@ public class Launcher extends AppCompatActivity {
         });
     }
 
-    public void openUrl(View view){
-        Uri uri = Uri.parse("https://www.weibo.com/tfwangjunkai");
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(uri);
+    public void skip(View view){
+        Intent intent = new Intent(Launcher.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

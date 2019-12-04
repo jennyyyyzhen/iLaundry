@@ -292,7 +292,7 @@ public class AtwoodDorm extends AppCompatActivity {
 
 
 
-    
+
     /* send out notification(s) to the user when a machine(dryer/washer) is done
      */
     private void addNotification(String dormName) {
