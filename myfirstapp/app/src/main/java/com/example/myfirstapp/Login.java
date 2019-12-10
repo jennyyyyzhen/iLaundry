@@ -40,6 +40,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    /*
+    A method used to get the information necessary for login
+    including username, password, email
+     */
+
     public void getExtraInformation(View view) {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);

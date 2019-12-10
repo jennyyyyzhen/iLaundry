@@ -184,7 +184,8 @@ public class NorthDorm extends AppCompatActivity {
             notification_builder = new NotificationCompat.Builder(this);
         }
 
-
+        /* set the icon for UI
+         */
         notification_builder.setSmallIcon(R.mipmap.laundry_service_round)
                 .setContentTitle("Your laundry is done in " + dormName + "'s laundry room.")
                 .setContentText("Please go and get it!")

@@ -240,6 +240,7 @@ public class CaseDorm extends AppCompatActivity {
             }
         });
 
+
         DatabaseReference node2 = database.child("Case").child("dryer");
         node2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -290,7 +291,7 @@ public class CaseDorm extends AppCompatActivity {
             notification_builder = new NotificationCompat.Builder(this);
         }
 
-
+        // create a notification icon
         notification_builder.setSmallIcon(R.mipmap.laundry_service_round)
                 .setContentTitle("Your laundry is done in " + dormName + "'s laundry room.")
                 .setContentText("Please go and get it!")
